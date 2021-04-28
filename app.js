@@ -19,8 +19,7 @@ function getParams () {
     AMOUNT = PARAMS.get('amount');
     CATEGORY = PARAMS.get('category');
     DIFFICULT = PARAMS.get('difficult');
-    TYPE = PARAMS.get('type');    
-    console.log(AMOUNT, CATEGORY, DIFFICULT, TYPE)
+    TYPE = PARAMS.get('type');       
 }
 
 function getQuestions () {
@@ -34,13 +33,11 @@ function saveQuestions (result) {
     result.forEach((question)=>{
         questions.push(question);   
     })   
-    console.log(result)
+   
     result.forEach((answer) => answers.push(answer.correct_answer))
-    
-
 
     // Verificamos que tipo de pregunta es: Boolean or Multiple
-    console.log(questions)
+    
     if (questions[0].type === 'multiple'){
         printMultipleQuestions()        
     } else {        
@@ -112,7 +109,6 @@ function printBooleanQuestions () {
             </div>
         </div>
         <button type="button" class="btn btn-primary mt-3" onclick="printNextBooleanQuestion()">Next Question</button>`
-        
        
         countQuestions()
 }
@@ -128,8 +124,7 @@ function printNextMultipleQuestion () {
             printMultipleQuestions() 
         }, 2000)   
         answersCountInterface++
-    } else {        
-        console.log('mostramos resultados');
+    } else {              
         setTimeout(()=>{
             showResults()
         }, 2000)
@@ -142,8 +137,7 @@ function printNextBooleanQuestion () {
             printBooleanQuestions()    
         }, 2000)
         answersCountInterface++
-    } else {        
-        console.log('mostramos resultados')
+    } else {  
         setTimeout(()=>{
             showResults()
         }, 2000)
@@ -151,18 +145,14 @@ function printNextBooleanQuestion () {
 }   
 
 function multipleAnswerChooiced (id) {
-
-    console.log(answers)
-    console.log(`respuesta seleccionada = ${id.textContent}`)
+   
     let correctAnswer = document.getElementById(id.id)
-    if(id.textContent === answers[i]){
-        console.log('respuesta correcta')
+    if(id.textContent === answers[i]){       
         correctAnswer.parentNode.classList.add('answer-bg-correct')
         addUserScore();        
         i++
         return true
-    } else {
-        console.log('respuesta incorrecta')
+    } else {       
         correctAnswer.parentNode.classList.add('answer-bg-incorrect')
         i++
         return false
@@ -171,18 +161,15 @@ function multipleAnswerChooiced (id) {
 }
 
 function booleanAnswerChooiced (id) {
-    console.log(answers)
-    console.log(`respuesta seleccionada = ${id.textContent}`)
+
     let correctAnswer = document.getElementById(id.id)
     
-    if(id.textContent === answers[i]){
-        console.log('respuesta correcta')
+    if(id.textContent === answers[i]){       
         correctAnswer.parentNode.classList.add('answer-bg-correct')
         addUserScore();        
         i++
         return true;
-    } else {
-        console.log('respuesta incorrecta')
+    } else {      
         correctAnswer.parentNode.classList.add('answer-bg-incorrect')
         i++
         return false;
@@ -194,16 +181,12 @@ function addUserScore () {
     userScore+=10
 }
        
-function getRandomAnswers (array) {
-    
-        for (let i = array.length - 1; i > 0; i--) {
+function getRandomAnswers (answers) {    
+        for (let i = answers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        console.log(answers)
-        return array
-    
-
+            [answers[i], answers[j]] = [answers[j], answers[i]];
+        }       
+        return answers
 }
 
 function showResults () {
@@ -214,9 +197,6 @@ function showResults () {
     <a href="./index.html"class="btn btn-primary mt-5">Try Again?</a>
     `
 }
-    
-    
-
 
 getParams()
 getQuestions()
